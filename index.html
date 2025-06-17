@@ -8,18 +8,21 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
-            background: #f4f4f4;
+            background: #000; /* fundo preto */
+            color: #fff;
         }
         h2 {
-            color: #333;
+            color: #fff;
         }
         input[type=text] {
             width: 100%;
             padding: 12px;
             font-size: 16px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
             border-radius: 4px;
+            background: #222;
+            color: #fff;
         }
         .result {
             padding: 10px;
@@ -27,6 +30,14 @@
             border-radius: 6px;
             color: #fff;
             font-weight: bold;
+        }
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 200px;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -37,6 +48,8 @@
 <input type="text" id="searchInput" placeholder="Exemplo: XC 60, Q8, Polo..." onkeyup="searchCar()">
 
 <div id="results"></div>
+
+<img src="logo.png" alt="Logo MLayer" class="logo">
 
 <script>
     const parkingData = [
@@ -102,13 +115,5 @@
         if (lowerName.includes("vw") || lowerName.includes("volkswagen") || lowerName.includes("polo") || lowerName.includes("virtus") || lowerName.includes("nivus") || lowerName.includes("t-cross") || lowerName.includes("tiguan") || lowerName.includes("taos")) return "Volkswagen";
         if (lowerName.includes("byd") || lowerName.includes("song")) return "BYD";
         if (lowerName.includes("volvo") || lowerName.includes("xc")) return "Volvo";
-        if (lowerName.includes("ford") || lowerName.includes("bronco") || lowerName.includes("territory")) return "Ford";
-        if (lowerName.includes("jeep") || lowerName.includes("compass") || lowerName.includes("commander") || lowerName.includes("renegade")) return "Jeep";
-        if (lowerName.includes("mini") || lowerName.includes("countryman")) return "Mini";
-        return "";
-    }
-</script>
-
-</body>
-</html>
+        if (lowerName.includes("ford") || lower
 
