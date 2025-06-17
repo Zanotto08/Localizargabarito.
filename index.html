@@ -41,3 +41,139 @@
 <script>
     const parkingData = [
         // Esquerdo
+        ["Toro", "Esquerdo", "01"],
+        ["", "Esquerdo", "02"],
+        ["Pajero Sport", "Esquerdo", "03"],
+        ["Rampage", "Esquerdo", "04"],
+        ["Corolla Sedan", "Esquerdo", "05"],
+        ["Corolla Cross", "Esquerdo", "06"],
+        ["Tiguan", "Esquerdo", "07"],
+        ["Polo", "Esquerdo", "08"],
+        ["Nivus", "Esquerdo", "09"],
+        ["Virtus", "Esquerdo", "10"],
+        ["T-Cros", "Esquerdo", "11"],
+        ["Taos", "Esquerdo", "12"],
+        ["Tigo 7", "Esquerdo", "13"],
+        ["Tigo 7 Sport", "Esquerdo", "14"],
+        ["CRV/ HRV", "Esquerdo", "15"],
+
+        // Direito
+        ["", "Direito", "01"],
+        ["", "Direito", "02"],
+        ["", "Direito", "03"],
+        ["", "Direito", "04"],
+        ["Countryman", "Direito", "05"],
+        ["EX 30", "Direito", "06"],
+        ["XC 60", "Direito", "07"],
+        ["XC 40", "Direito", "08"],
+        ["XC 90", "Direito", "09"],
+        ["Lexus ES 300", "Direito", "10"],
+        ["RX 500", "Direito", "11"],
+        ["Lexus UX", "Direito", "12"],
+        ["Lexus NX", "Direito", "13"],
+        ["Song Pro", "Direito", "14"],
+        ["Song Plus", "Direito", "15"],
+        ["Bagunça Mini", "Direito", "16"],
+        ["Territory", "Direito", "17"],
+        ["Panamera", "Direito", "18"],
+        ["Macan Eletric", "Direito", "19"],
+        ["Taycan SUV", "Direito", "20"],
+        ["Taycan Cros", "Direito", "21"],
+        ["Macan", "Direito", "22"],
+        ["Macan", "Direito", "23"],
+        ["Cayenne Coupe", "Direito", "24"],
+        ["Cayenne", "Direito", "25"],
+        ["Macan/Cayenne Gabarito", "Direito", "26"],
+        ["Bagunça", "Direito", "27"],
+        ["Hilux SW4", "Direito", "28"],
+        ["Outlander", "Direito", "29"],
+        ["Cayenne coupe", "Direito", "30"],
+        ["GLE Coupe", "Direito", "31"],
+        ["GLE 400", "Direito", "32"],
+        ["Classe C", "Direito", "33"],
+        ["GLA", "Direito", "34"],
+        ["GLB", "Direito", "35"],
+        ["Compass", "Direito", "36"],
+        ["Commander", "Direito", "37"],
+        ["Renegade", "Direito", "38"],
+        ["Bronco", "Direito", "39"],
+        ["GLC", "Direito", "40"],
+        ["X5", "Direito", "41"],
+        ["Série 5", "Direito", "42"],
+        ["Série 3", "Direito", "43"],
+        ["X1", "Direito", "44"],
+        ["X1", "Direito", "45"],
+        ["X6", "Direito", "46"],
+        ["X4", "Direito", "47"],
+        ["X3", "Direito", "48"],
+        ["A5", "Direito", "49"],
+        ["X2", "Direito", "50"],
+        ["Q5", "Direito", "51"],
+        ["A4 Sedan", "Direito", "52"],
+        ["A3 Sportback", "Direito", "53"],
+        ["Q5 Sportback", "Direito", "54"],
+        ["A3 Sedan", "Direito", "55"],
+        ["Q8", "Direito", "56"],
+        ["Q8 Sportback", "Direito", "57"],
+        ["Q8 E-TRON", "Direito", "58"],
+        ["Q3", "Direito", "59"],
+        ["Q3 Sportback", "Direito", "60"],
+        ["Q7", "Direito", "61"],
+    ];
+
+    const brandColors = {
+        "Audi": "yellow",
+        "Porsche": "red",
+        "BMW": "blue",
+        "Toyota": "green",
+        "Lexus": "purple",
+        "Mercedes": "orange",
+        "Volkswagen": "lightblue",
+        "BYD": "pink",
+        "Volvo": "gray",
+        "Ford": "brown",
+        "Jeep": "darkgreen",
+        "Mini": "black"
+    };
+
+    function searchCar() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = "";
+
+        if (input.length === 0) return;
+
+        parkingData.forEach(([carName, side, spot]) => {
+            if (carName.toLowerCase().includes(input)) {
+                let brand = getBrand(carName);
+                let color = brandColors[brand] || "#888";
+
+                const resultHTML = `<div class="result" style="background:${color}">
+                    🚗 <strong>${carName}</strong> → ${side} - Vaga ${spot}
+                </div>`;
+
+                resultsDiv.innerHTML += resultHTML;
+            }
+        });
+    }
+
+    function getBrand(carName) {
+        const lowerName = carName.toLowerCase();
+        if (lowerName.includes("audi") || lowerName.startsWith("q") || lowerName.startsWith("a")) return "Audi";
+        if (lowerName.includes("porsche") || lowerName.includes("cayenne") || lowerName.includes("macan") || lowerName.includes("taycan") || lowerName.includes("panamera")) return "Porsche";
+        if (lowerName.includes("bmw") || lowerName.startsWith("x") || lowerName.includes("série")) return "BMW";
+        if (lowerName.includes("toyota") || lowerName.includes("corolla") || lowerName.includes("hilux")) return "Toyota";
+        if (lowerName.includes("lexus")) return "Lexus";
+        if (lowerName.includes("mercedes") || lowerName.includes("gle") || lowerName.includes("classe") || lowerName.includes("glc") || lowerName.includes("glb") || lowerName.includes("gla")) return "Mercedes";
+        if (lowerName.includes("vw") || lowerName.includes("volkswagen") || lowerName.includes("polo") || lowerName.includes("virtus") || lowerName.includes("nivus") || lowerName.includes("t-cross") || lowerName.includes("tiguan") || lowerName.includes("taos")) return "Volkswagen";
+        if (lowerName.includes("byd") || lowerName.includes("song")) return "BYD";
+        if (lowerName.includes("volvo") || lowerName.includes("xc")) return "Volvo";
+        if (lowerName.includes("ford") || lowerName.includes("bronco") || lowerName.includes("territory")) return "Ford";
+        if (lowerName.includes("jeep") || lowerName.includes("compass") || lowerName.includes("commander") || lowerName.includes("renegade")) return "Jeep";
+        if (lowerName.includes("mini") || lowerName.includes("countryman")) return "Mini";
+        return "";
+    }
+</script>
+
+</body>
+</html>
