@@ -9,7 +9,10 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             background: #000; /* fundo preto */
-            color: #fff;
+            color: #fff; /* texto branco */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         h2 {
             color: #fff;
@@ -19,10 +22,8 @@
             padding: 12px;
             font-size: 16px;
             margin-bottom: 20px;
-            border: 1px solid #555;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            background: #222;
-            color: #fff;
         }
         .result {
             padding: 10px;
@@ -32,11 +33,13 @@
             font-weight: bold;
         }
         .logo {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 200px;
+            margin-top: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .logo img {
+            max-width: 300px; /* tamanho do logo */
+            height: auto;
             opacity: 0.8;
         }
     </style>
@@ -49,7 +52,9 @@
 
 <div id="results"></div>
 
-<img src="logo.png" alt="Logo MLayer" class="logo">
+<div class="logo">
+    <img src="logo.png" alt="Logo MLayer">
+</div>
 
 <script>
     const parkingData = [
@@ -65,7 +70,7 @@
         ["A3 Sedan", "Direito", "55"],
         ["Q3", "Direito", "59"],
         ["Commander", "Direito", "37"],
-        // ... (adicione os carros que faltarem aqui)
+        // ... outros carros
     ];
 
     const brandColors = {
@@ -115,5 +120,12 @@
         if (lowerName.includes("vw") || lowerName.includes("volkswagen") || lowerName.includes("polo") || lowerName.includes("virtus") || lowerName.includes("nivus") || lowerName.includes("t-cross") || lowerName.includes("tiguan") || lowerName.includes("taos")) return "Volkswagen";
         if (lowerName.includes("byd") || lowerName.includes("song")) return "BYD";
         if (lowerName.includes("volvo") || lowerName.includes("xc")) return "Volvo";
-        if (lowerName.includes("ford") || lower
+        if (lowerName.includes("ford") || lowerName.includes("bronco") || lowerName.includes("territory")) return "Ford";
+        if (lowerName.includes("jeep") || lowerName.includes("compass") || lowerName.includes("commander") || lowerName.includes("renegade")) return "Jeep";
+        if (lowerName.includes("mini") || lowerName.includes("countryman")) return "Mini";
+        return "";
+    }
+</script>
 
+</body>
+</html>
