@@ -8,8 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
-            background: #000; /* fundo preto */
+            background: #000;
             color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         h2 {
             color: #fff;
@@ -26,19 +30,15 @@
             padding: 10px;
             margin: 10px 0;
             border-radius: 6px;
+            background: #333;
             color: #fff;
             font-weight: bold;
         }
-        .logo-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        footer {
             text-align: center;
-        }
-        .logo-container img {
-            max-width: 300px;
-            opacity: 0.8;
+            padding: 20px 0;
+            font-size: 18px;
+            color: #fff;
         }
     </style>
 </head>
@@ -50,14 +50,13 @@
 
 <div id="results"></div>
 
-<div class="logo-container">
-    <img src="logo.png" alt="Logo">
-</div>
+<footer>
+    MLAYER
+</footer>
 
 <script>
     const parkingData = [
         ["Toro", "Esquerdo", "01"],
-        ["", "Esquerdo", "02"],
         ["Pajero Sport", "Esquerdo", "03"],
         ["Rampage", "Esquerdo", "04"],
         ["Corolla Sedan", "Esquerdo", "05"],
@@ -71,10 +70,7 @@
         ["Tigo 7", "Esquerdo", "13"],
         ["Tigo 7 Sport", "Esquerdo", "14"],
         ["CRV/ HRV", "Esquerdo", "15"],
-        ["", "Direito", "01"],
-        ["", "Direito", "02"],
-        ["", "Direito", "03"],
-        ["", "Direito", "04"],
+
         ["Countryman", "Direito", "05"],
         ["EX 30", "Direito", "06"],
         ["XC 60", "Direito", "07"],
@@ -86,7 +82,6 @@
         ["Lexus NX", "Direito", "13"],
         ["Song Pro", "Direito", "14"],
         ["Song Plus", "Direito", "15"],
-        ["Bagunça Mini", "Direito", "16"],
         ["Territory", "Direito", "17"],
         ["Panamera", "Direito", "18"],
         ["Macan Eletric", "Direito", "19"],
@@ -97,10 +92,8 @@
         ["Cayenne Coupe", "Direito", "24"],
         ["Cayenne", "Direito", "25"],
         ["Macan/Cayenne Gabarito", "Direito", "26"],
-        ["Bagunça", "Direito", "27"],
         ["Hilux SW4", "Direito", "28"],
         ["Outlander", "Direito", "29"],
-        ["Cayenne coupe", "Direito", "30"],
         ["GLE Coupe", "Direito", "31"],
         ["GLE 400", "Direito", "32"],
         ["Classe C", "Direito", "33"],
@@ -115,7 +108,6 @@
         ["Série 5", "Direito", "42"],
         ["Série 3", "Direito", "43"],
         ["X1", "Direito", "44"],
-        ["X1", "Direito", "45"],
         ["X6", "Direito", "46"],
         ["X4", "Direito", "47"],
         ["X3", "Direito", "48"],
@@ -131,62 +123,35 @@
         ["Q8 E-TRON", "Direito", "58"],
         ["Q3", "Direito", "59"],
         ["Q3 Sportback", "Direito", "60"],
-        ["Q7", "Direito", "61"]
+        ["Q7", "Direito", "61"],
     ];
 
-    const brandColors = {
-        "Audi": "yellow",
-        "Porsche": "red",
-        "BMW": "blue",
-        "Toyota": "green",
-        "Lexus": "purple",
-        "Mercedes": "orange",
-        "Volkswagen": "lightblue",
-        "BYD": "pink",
-        "Volvo": "gray",
-        "Ford": "brown",
-        "Jeep": "darkgreen",
-        "Mini": "black"
-    };
+    function normalizeString(str) {
+        return str.toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+    }
 
     function searchCar() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
+        const input = normalizeString(document.getElementById('searchInput').value);
         const resultsDiv = document.getElementById('results');
         resultsDiv.innerHTML = "";
 
         if (input.length === 0) return;
 
         parkingData.forEach(([carName, side, spot]) => {
-            if (carName.toLowerCase().includes(input)) {
-                let brand = getBrand(carName);
-                let color = brandColors[brand] || "#888";
-
-                const resultHTML = `<div class="result" style="background:${color}">
+            if (normalizeString(carName).includes(input)) {
+                const resultHTML = `<div class="result">
                     🚗 <strong>${carName}</strong> → ${side} - Vaga ${spot}
                 </div>`;
-
                 resultsDiv.innerHTML += resultHTML;
             }
         });
-    }
-
-    function getBrand(carName) {
-        const lowerName = carName.toLowerCase();
-        if (lowerName.includes("audi") || lowerName.startsWith("q") || lowerName.startsWith("a")) return "Audi";
-        if (lowerName.includes("porsche") || lowerName.includes("cayenne") || lowerName.includes("macan") || lowerName.includes("taycan") || lowerName.includes("panamera")) return "Porsche";
-        if (lowerName.includes("bmw") || lowerName.startsWith("x") || lowerName.includes("série")) return "BMW";
-        if (lowerName.includes("toyota") || lowerName.includes("corolla") || lowerName.includes("hilux")) return "Toyota";
-        if (lowerName.includes("lexus")) return "Lexus";
-        if (lowerName.includes("mercedes") || lowerName.includes("gle") || lowerName.includes("classe") || lowerName.includes("glc") || lowerName.includes("glb") || lowerName.includes("gla")) return "Mercedes";
-        if (lowerName.includes("vw") || lowerName.includes("volkswagen") || lowerName.includes("polo") || lowerName.includes("virtus") || lowerName.includes("nivus") || lowerName.includes("t-cross") || lowerName.includes("tiguan") || lowerName.includes("taos")) return "Volkswagen";
-        if (lowerName.includes("byd") || lowerName.includes("song")) return "BYD";
-        if (lowerName.includes("volvo") || lowerName.includes("xc")) return "Volvo";
-        if (lowerName.includes("ford") || lowerName.includes("bronco") || lowerName.includes("territory")) return "Ford";
-        if (lowerName.includes("jeep") || lowerName.includes("compass") || lowerName.includes("commander") || lowerName.includes("renegade")) return "Jeep";
-        if (lowerName.includes("mini") || lowerName.includes("countryman")) return "Mini";
-        return "";
     }
 </script>
 
 </body>
 </html>
+
